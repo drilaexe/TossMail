@@ -44,7 +44,7 @@
                     <label class="block" for="EmailAdd" value="{{ __('ListName') }}">
                         <span class="block text-sm font-medium text-white">Email</span>
 
-                        <x-input-label for="ListName" value="{{ __('ListName') }}" class="sr-only" />
+                        <x-input-label for="EmailAdd" value="{{ __('EmailAdd') }}" class="sr-only" />
 
                         <x-text-input id="EmailAdd" name="EmailAdd" type="email" class="mt-1 block w-full peer ..."
                             placeholder="{{ __('EmailAdd') }}" />
@@ -61,17 +61,26 @@
                 </div>
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
+                        
                         $('#AddEmailAndName').click(function(e) {
                             e.preventDefault();
                             $('#ListOfEmailsAdded').append(`
-                            <div class=" flex">
-                            <x-text-input disabled id="test1" name="test1" class="mt-1  block w-4/5"
+                            <div class="grid grid-rows-2 grid-flow-col">
+                            <div class="row-start-1 row-end-2">
+                                <x-text-input disabled id="test1" name="test1" class="mt-1  block w-full"
+                                value="${$('#Name').val()}" />
+                            </div>
+                            <div class="row-start-2 row-end-2">
+                                <x-text-input disabled id="test1" name="test1" class="mt-1  block w-full"
                                 value="${$('#EmailAdd').val()}" />
-                            <button type="button" onclick="$(this).parent().remove()"
-                                class="w-auto inline-flex items-center px-4 py-1 bg-red-600 border border-transparent rounded-md font-semibold  text-sm text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                            </div>
+                            <div class="row-span-3 ms-2 self-center">
+                            <button type="button" onclick="$(this).parent().parent().remove()"
+                                class="w-auto inline-flex items-center px-4 py-3 bg-red-600 border border-transparent rounded-md font-semibold  text-sm text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
                                 {{ __('X') }}
                             </button>
-                        </div>
+                            </div>
+                            </div>
                             `)
                         });
                     });
@@ -80,8 +89,9 @@
                     <h1 class="ms-4 text-white text-lg">Added Emails</h1>
                     <div class="grid grid-cols-3 gap-3 overflow-y-auto scroll-m-[34rem] scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-400"
                         id="ListOfEmailsAdded" style="max-height: 36rem">
+                    
                     </div>
-
+                   
 
                 </div>
             </div>
