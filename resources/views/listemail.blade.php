@@ -67,11 +67,11 @@
                             $('#ListOfEmailsAdded').append(`
                             <div class="grid grid-rows-2 grid-flow-col">
                             <div class="row-start-1 row-end-2">
-                                <x-text-input readonly id="nameaddedemail${AddedEmail}" name="EmailList[][Emri]" class="mt-1  block w-full"
+                                <x-text-input  id="nameaddedemail${AddedEmail}" name="EmailList[${AddedEmail}][Emri]" class="mt-1  block w-full"
                                 value="${$('#Name').val()}" />
                             </div>
                             <div class="row-start-2 row-end-2">
-                                <x-text-input readonly id="emailadded${AddedEmail}" name="EmailList[][Email]" class="mt-1  block w-full"
+                                <x-text-input  id="emailadded${AddedEmail}" name="EmailList[${AddedEmail}][Email]" class="mt-1  block w-full"
                                 value="${$('#EmailAdd').val()}" />
                             </div>
                             <div class="row-span-3 ms-2 self-center">

@@ -15,9 +15,12 @@ class EmailListController extends Controller
         $Email->UserId = $request->user()->id;;
         $Email->CreatedAt = Carbon::now()->toDateTimeString();
         $Email->UpdatedAt = NULL;
-dd($request);
-        // $Email->save();
-        // $Email->idEmailListNames;
-        // return redirect()->back();
+      $idEmailListName=$Email->idEmailListName;
+
+        foreach ($request->input('EmailList') as $key => $value) {
+            // var_dump($value);
+        }
+        $Email->save();
+        return redirect()->back();
    } 
 }
