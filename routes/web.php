@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EmailListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,10 @@ Route::get('/dashboard', function () {
 Route::get('/listemail', function () {
     return view('listemail');
 })->middleware(['auth', 'verified'])->name('listemail');
+
+
+
+Route::post('/AddEmailList', [EmailListController::class, 'AddEmailList'])->name('AddEmailList');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

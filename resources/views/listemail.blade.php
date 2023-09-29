@@ -21,7 +21,7 @@
         </div>
     </div>
     <x-modal maxWidth="6xl" name="add-modal-lista" class="auto-cols-max" focusable>
-        <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+        <form method="post" id="AddEmailList" action="{{ route('AddEmailList') }}" class="p-6">
             @csrf
             @method('post')
             <div class="grid grid-cols-4 gap-3">
@@ -30,7 +30,7 @@
                         <span class="block text-m  font-medium text-white">List Name</span>
                         <x-input-label for="ListName" value="{{ __('ListName') }}" class="sr-only" />
 
-                        <x-text-input id="ListName" name="ListName" type="text" class="mt-1 block w-full"
+                        <x-text-input id="ListName" name="Emertimi" type="text" class="mt-1 block w-full"
                             placeholder="{{ __('ListName') }}" />
                     </label>
                     <h1 class="mt-2 mb-2 text-white">Add Emails</h1>
@@ -41,7 +41,7 @@
                         placeholder="{{ __('Name') }}" />
 
                     </label>
-                    <label class="block" for="EmailAdd" value="{{ __('ListName') }}">
+                    <label class="block" for="EmailAdd" value="{{ __('EmailAdd') }}">
                         <span class="block text-sm font-medium text-white">Email</span>
 
                         <x-input-label for="EmailAdd" value="{{ __('EmailAdd') }}" class="sr-only" />
@@ -61,17 +61,17 @@
                 </div>
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
-                        
+                        AddedEmail=0;
                         $('#AddEmailAndName').click(function(e) {
                             e.preventDefault();
                             $('#ListOfEmailsAdded').append(`
                             <div class="grid grid-rows-2 grid-flow-col">
                             <div class="row-start-1 row-end-2">
-                                <x-text-input disabled id="test1" name="test1" class="mt-1  block w-full"
+                                <x-text-input readonly id="nameaddedemail${AddedEmail}" name="EmailList[][Emri]" class="mt-1  block w-full"
                                 value="${$('#Name').val()}" />
                             </div>
                             <div class="row-start-2 row-end-2">
-                                <x-text-input disabled id="test1" name="test1" class="mt-1  block w-full"
+                                <x-text-input readonly id="emailadded${AddedEmail}" name="EmailList[][Email]" class="mt-1  block w-full"
                                 value="${$('#EmailAdd').val()}" />
                             </div>
                             <div class="row-span-3 ms-2 self-center">
@@ -80,10 +80,11 @@
                                 {{ __('X') }}
                             </button>
                             </div>
-                            </div>
-                            `)
+                            </div>`);
+                            AddedEmail++;
                         });
                     });
+         
                 </script>
                 <div class="col-span-3">
                     <h1 class="ms-4 text-white text-lg">Added Emails</h1>
@@ -101,7 +102,7 @@
                 {{ __('Cancel') }}
             </x-secondary-button>
 
-            <x-blue-button class="ml-3">
+            <x-blue-button class="ml-3" type="submit" form="AddEmailList">
                 {{ __('Save') }}
                 </x-danger-button>
         </div>
