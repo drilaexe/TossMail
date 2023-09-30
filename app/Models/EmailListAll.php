@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class EmailListAll extends Model
 {
     use HasFactory;
+    protected $table = 'EmailListAll';
+
+    protected $primaryKey = 'idEmailListNames';
+
+    public $timestamps = false;
+
     protected $fillable = [
         'idEmailListNames',
         'Emri',
