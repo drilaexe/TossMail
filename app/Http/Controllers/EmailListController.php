@@ -10,6 +10,10 @@ class EmailListController extends Controller
 {
     public function AddEmailList(Request $request)
     {
+        if (EmailListNames::where('Emertimi', '=', $request->input('Emertimi'))->count() > 0) {
+              
+            return redirect()->back()->withErrors('ds');
+         }
         $Email = new EmailListNames();
         $Email->Emertimi = $request->input('Emertimi');
         $Email->UserId = $request->user()->id;
@@ -31,4 +35,4 @@ class EmailListController extends Controller
        
         return redirect()->back();
    } 
-}
+} 
