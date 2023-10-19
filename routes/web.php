@@ -23,18 +23,18 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/listemail', function () {
-    return view('listemail');
-})->middleware(['auth', 'verified'])->name('listemail');
 
 
 
-Route::post('/AddEmailList', [EmailListController::class, 'AddEmailList'])->name('AddEmailList');
+
 
 Route::middleware('auth')->group(function () {
+    Route::get('/listemail', function () {return view('listemail');})->name('listemail');
+    Route::post('/AddEmailList', [EmailListController::class, 'AddEmailList'])->name('AddEmailList');
+    Route::get('/ListNameEx/{name}', [EmailListController::class, 'ListNameEx'])->name('ListNameEx');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

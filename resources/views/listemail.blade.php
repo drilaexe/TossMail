@@ -39,7 +39,7 @@
                                 $('#opmodaladd').click();
                             });
                         </script>
-                      <p class="text-pink-600 text-m">  {{ __('Emri Listes egziston ne databaz!') }}</p>
+                        <p class="text-pink-600 text-m"> {{ __('Emri Listes egziston ne databaz!') }}</p>
                     @endif
                     <h1 class="mt-2 mb-2 text-white">Add Emails</h1>
                     <span class="block text-sm font-medium text-white">Name</span>
@@ -150,9 +150,27 @@
                 {{ __('Cancel') }}
             </x-secondary-button>
 
-            <x-blue-button class="ml-3" type="submit" form="AddEmailList">
+            <x-blue-button class="ml-3" type="button" id="AddEmailListBtn">
                 {{ __('Save') }}
                 </x-danger-button>
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                $('#AddEmailListBtn').click(function(e) {
+                    e.preventDefault();
+                    ListName = $('#ListName').val();
+                    axios(`/ListNameEx/${ListName}`).then(function(response) {
+                        console.log(response.data);
+                        if (response.data == 1) {
+                            $('#AddEmailList').submit();
+                        } else {
+                            $('#ListName').after($(`<p class="mt-2  text-pink-600 text-sm removeerr">Emri i listes Egziston!</p>`)
+                                .delay(2000).fadeOut());
+                        }
+                    });
+
+                });
+            });
+        </script>
     </x-modal>
 </x-app-layout>
