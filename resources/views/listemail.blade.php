@@ -158,13 +158,31 @@
             document.addEventListener("DOMContentLoaded", function() {
                 $('#AddEmailListBtn').click(function(e) {
                     e.preventDefault();
+
                     ListName = $('#ListName').val();
+                    if (ListName == null ||ListName=='' ) {
+                        $('#ListName').after($(
+                                `<p class="mt-2  text-pink-600 text-sm removeerr">Emri i listes Obligativ!</p>`
+                                )
+                            .delay(2000).fadeOut());
+                        return;
+                    }
+                  
+                    if ($('#ListOfEmailsAdded').children().length==0) {
+                        $('#ListOfEmailsAdded').after($(
+                                `<p class="mt-2  text-pink-600 text-sm removeerr">Emailat jane Obligativ!</p>`
+                                )
+                            .delay(2000).fadeOut());
+                        return;
+                    }
                     axios(`/ListNameEx/${ListName}`).then(function(response) {
                         console.log(response.data);
                         if (response.data == 1) {
                             $('#AddEmailList').submit();
                         } else {
-                            $('#ListName').after($(`<p class="mt-2  text-pink-600 text-sm removeerr">Emri i listes Egziston!</p>`)
+                            $('#ListName').after($(
+                                    `<p class="mt-2  text-pink-600 text-sm removeerr">Emri i listes Egziston!</p>`
+                                    )
                                 .delay(2000).fadeOut());
                         }
                     });
