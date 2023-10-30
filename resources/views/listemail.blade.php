@@ -9,24 +9,26 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="ps-2 bg-white  dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <x-blue-button x-data="" id="opmodaladd"
-                    x-on:click.prevent="$dispatch('open-modal', 'add-modal-lista')">{{ __('Shto List') }}</x-danger-button>
+                    x-on:click.prevent="$dispatch('open-modal', 'add-modal-lista')">{{ __('Shto List') }}</x-blue-button>
             </div>
         </div>
     </div>
     <div class="py-2">
-       
+
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="ps-2 bg-white  dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="grid grid-cols-6 gap-5 font-mono text-white text-sm text-center font-bold leading-6 rounded-lg">
+            <div class="ps-2 bg-white  dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg pb-2 ">
+                <div
+                    class="grid grid-cols-6 gap-5 font-mono text-white text-sm text-center font-bold leading-6 rounded-lg mb-2">
                     @foreach ($EmailListNames as $EmailListName)
-                    <div class="p-4 rounded-lg shadow-lg bg-blue-500">{{ $EmailListName->Emertimi }}</div>
-                    
-                @endforeach
-            </div> 
-                   
-               
-                 
-                {{ $EmailListNames->links('vendor.pagination.tailwind') }}   </div>
+                        <button x-data="" class="p-4 rounded-lg shadow-lg bg-blue-500"
+                            x-on:click.prevent="seemodal({{ $EmailListName->idEmailListNames }},'{{ $EmailListName->Emertimi }}'),$dispatch('open-modal', 'see-modal-lista')">{{ $EmailListName->Emertimi }}</button>
+                    @endforeach
+                </div>
+
+
+
+                {{ $EmailListNames->links('vendor.pagination.tailwind') }}
+            </div>
         </div>
     </div>
     <x-modal maxWidth="6xl" name="add-modal-lista" class="auto-cols-max" focusable>
@@ -42,14 +44,7 @@
                         <x-text-input id="ListName" name="Emertimi" type="text" class="mt-1 block w-full"
                             placeholder="{{ __('Emri Listes') }}" />
                     </label>
-                    @if ($errors->any())
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function() {
-                                $('#opmodaladd').click();
-                            });
-                        </script>
-                        <p class="text-pink-600 text-m"> {{ __('Emri Listes egziston ne databaz!') }}</p>
-                    @endif
+
                     <h1 class="mt-2 mb-2 text-white">Shto Emails</h1>
                     <span class="block text-sm font-medium text-white">Emri</span>
                     <x-input-label for="ListName" value="{{ __('ListName') }}" class="sr-only" />
@@ -216,4 +211,54 @@
             });
         </script>
     </x-modal>
+
+    <x-modal maxWidth="6xl" name="see-modal-lista" class="auto-cols-max" focusable>
+
+
+        <h1 class="ms-4 text-white text-lg" id="HeaderseeEmailList">Emailat e shtuar</h1>
+        <div class="grid grid-cols-4 gap-3 overflow-y-auto scroll-m-[34rem] scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-400 ps-2 pe-2"
+            id="EmailsShow" style="max-height: 36rem">
+
+        </div>
+
+
+
+        <div class="mt-6 ms-2 me-2 mb-2 flex justify-between">
+            <x-secondary-button x-on:click="$dispatch('close')">
+                {{ __('Anulo') }}
+            </x-secondary-button>
+
+
+        </div>
+
+    </x-modal>
+    <script>
+        function seemodal(IdListes,EmriListes) {
+            console.log(IdListes);
+            
+            $('#HeaderseeEmailList').html(EmriListes);
+            $('#EmailsShow').empty();
+            axios(`/ListDetails/${IdListes}`).then(function(response) {
+                console.log(response.data);
+               $.each(response.data, function (indexInArray, valueOfElement) { 
+                
+                $('#EmailsShow').append(
+                    `<div class="grid grid-rows-2 grid-flow-col border ps-1 pe-1 pb-1 border-gray-500">
+                            <div  class="row-start-1 row-end-2">
+                                <span class="block text-sm font-medium text-white">Emri</span>
+                                <x-text-input disabled   class="mt-1  block w-full"
+                                value="${valueOfElement.Emri}" />
+                            </div>
+                            <div  class="row-start-2 row-end-2">
+                                <span class="block text-sm font-medium text-white">Email</span>
+                                <x-text-input disabled  class="mt-1  block w-full"
+                                value="${valueOfElement.Email}" />
+                            </div>
+                   </div>` 
+                );
+               });
+            });
+        }
+    </script>
+
 </x-app-layout>
