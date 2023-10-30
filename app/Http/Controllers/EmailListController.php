@@ -45,4 +45,9 @@ class EmailListController extends Controller
             return 1;
         }
     }
+    public function listemail(Request $request)
+    {
+        $EmailListNames = EmailListNames::where('UserId', '=', $request->user()->id)->paginate(42);
+        return view('listemail')->with('EmailListNames', $EmailListNames);;
+    }
 }

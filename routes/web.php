@@ -29,7 +29,7 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/listemail', function () {return view('listemail');})->name('listemail');
+    Route::get('/listemail', [EmailListController::class, 'listemail'])->name('listemail');
     Route::post('/AddEmailList', [EmailListController::class, 'AddEmailList'])->name('AddEmailList');
     Route::get('/ListNameEx/{name}', [EmailListController::class, 'ListNameEx'])->name('ListNameEx');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
