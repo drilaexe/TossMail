@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('List Email') }}
+            {{ __('Lista Emaileve') }}
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="ps-2 bg-white  dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <x-blue-button x-data="" id="opmodaladd"
-                    x-on:click.prevent="$dispatch('open-modal', 'add-modal-lista')">{{ __('Add List') }}</x-danger-button>
+                    x-on:click.prevent="$dispatch('open-modal', 'add-modal-lista')">{{ __('Shto List') }}</x-danger-button>
             </div>
         </div>
     </div>
@@ -36,11 +36,11 @@
             <div class="grid grid-cols-4 gap-3">
                 <div class="col-span-1">
                     <label class="block">
-                        <span class="block text-m  font-medium text-white">List Name</span>
-                        <x-input-label for="ListName" value="{{ __('ListName') }}" class="sr-only" />
+                        <span class="block text-m  font-medium text-white">Emri Listes</span>
+                        <x-input-label for="ListName" value="{{ __('Emri Listes') }}" class="sr-only" />
 
                         <x-text-input id="ListName" name="Emertimi" type="text" class="mt-1 block w-full"
-                            placeholder="{{ __('ListName') }}" />
+                            placeholder="{{ __('Emri Listes') }}" />
                     </label>
                     @if ($errors->any())
                         <script>
@@ -50,12 +50,12 @@
                         </script>
                         <p class="text-pink-600 text-m"> {{ __('Emri Listes egziston ne databaz!') }}</p>
                     @endif
-                    <h1 class="mt-2 mb-2 text-white">Add Emails</h1>
-                    <span class="block text-sm font-medium text-white">Name</span>
+                    <h1 class="mt-2 mb-2 text-white">Shto Emails</h1>
+                    <span class="block text-sm font-medium text-white">Emri</span>
                     <x-input-label for="ListName" value="{{ __('ListName') }}" class="sr-only" />
 
                     <x-text-input id="Name" name="Name" type="text" class="mt-1 block w-full"
-                        placeholder="{{ __('Name') }}" />
+                        placeholder="{{ __('Emri') }}" />
 
                     </label>
                     <label id="AfterErrorTextEmriAndEmail" class="block" for="EmailAdd" value="{{ __('EmailAdd') }}">
@@ -68,9 +68,9 @@
 
 
                     </label>
-                    <div class="flex flex-row-reverse">
+                    <div class="flex flex-row-reverse pt-2">
                         <x-blue-button id="AddEmailAndName" type="button">
-                            {{ __('Add') }}
+                            {{ __('Shto') }}
                         </x-blue-button>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
                     });
                 </script>
                 <div class="col-span-3">
-                    <h1 class="ms-4 text-white text-lg">Added Emails</h1>
+                    <h1 class="ms-4 text-white text-lg">Emailat e shtuar</h1>
                     <div class="grid grid-cols-3 gap-3 overflow-y-auto scroll-m-[34rem] scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-400"
                         id="ListOfEmailsAdded" style="max-height: 36rem">
 
@@ -172,11 +172,11 @@
         </form>
         <div class="mt-6 ms-2 me-2 mb-2 flex justify-between">
             <x-secondary-button x-on:click="$dispatch('close')">
-                {{ __('Cancel') }}
+                {{ __('Anulo') }}
             </x-secondary-button>
 
             <x-blue-button class="ml-3" type="button" id="AddEmailListBtn">
-                {{ __('Save') }}
+                {{ __('Ruaj') }}
                 </x-danger-button>
         </div>
         <script>
