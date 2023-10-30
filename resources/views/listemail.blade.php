@@ -26,7 +26,7 @@
                    
                
                  
-                {{ $EmailListNames->links() }}   </div>
+                {{ $EmailListNames->links('vendor.pagination.tailwind') }}   </div>
         </div>
     </div>
     <x-modal maxWidth="6xl" name="add-modal-lista" class="auto-cols-max" focusable>
