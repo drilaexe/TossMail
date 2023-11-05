@@ -227,6 +227,9 @@
             <x-secondary-button x-on:click="$dispatch('close')">
                 {{ __('Anulo') }}
             </x-secondary-button>
+            <x-danger-button >
+                {{ __('Fshij Listen') }}<i class="gg-adidas"></i>
+            </x-danger-button>
 
 
         </div>
