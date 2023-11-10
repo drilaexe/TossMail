@@ -227,7 +227,7 @@
             <x-secondary-button x-on:click="$dispatch('close')">
                 {{ __('Anulo') }}
             </x-secondary-button>
-            <x-danger-button >
+            <x-danger-button id="FshiListen" onclick="fshijlisten()" data-id="0"><i class="fa fa-trash"></i>
                 {{ __('Fshij Listen') }}<i class="gg-adidas"></i>
             </x-danger-button>
 
@@ -236,17 +236,18 @@
 
     </x-modal>
     <script>
-        function seemodal(IdListes,EmriListes) {
+        function seemodal(IdListes, EmriListes) {
             console.log(IdListes);
-            
+
             $('#HeaderseeEmailList').html(EmriListes);
+            $('#FshiListen').data('id', IdListes);
             $('#EmailsShow').empty();
             axios(`/ListDetails/${IdListes}`).then(function(response) {
                 console.log(response.data);
-               $.each(response.data, function (indexInArray, valueOfElement) { 
-                
-                $('#EmailsShow').append(
-                    `<div class="grid grid-rows-2 grid-flow-col border ps-1 pe-1 pb-1 border-gray-500">
+                $.each(response.data, function(indexInArray, valueOfElement) {
+
+                    $('#EmailsShow').append(
+                        `<div class="grid grid-rows-2 grid-flow-col border ps-1 pe-1 pb-1 border-gray-500">
                             <div  class="row-start-1 row-end-2">
                                 <span class="block text-sm font-medium text-white">Emri</span>
                                 <x-text-input disabled   class="mt-1  block w-full"
@@ -257,10 +258,14 @@
                                 <x-text-input disabled  class="mt-1  block w-full"
                                 value="${valueOfElement.Email}" />
                             </div>
-                   </div>` 
-                );
-               });
+                   </div>`
+                    );
+                });
             });
+        }
+
+        function fshijlisten() {
+          alert('test')
         }
     </script>
 
