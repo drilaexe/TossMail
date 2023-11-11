@@ -47,17 +47,30 @@ class EmailListController extends Controller
     }
     public function ListDetails($IdList, Request $request)
     {
-      $EmailListNames=EmailListAll::where('idEmailListNames', '=', $IdList);
-     
-      if($EmailListNames->count()>0 ){
-        return response()->json($EmailListNames->get());
-      }else{
-        return response()->json([]);
-      }
+        $EmailListNames = EmailListAll::where('idEmailListNames', '=', $IdList);
+
+        if ($EmailListNames->count() > 0) {
+            return response()->json($EmailListNames->get());
+        } else {
+            return response()->json([]);
+        }
     }
     public function listemail(Request $request)
-    { 
+    {
         $EmailListNames = EmailListNames::where('UserId', '=', $request->user()->id)->orderBy('idEmailListNames', 'desc')->paginate(42);
         return view('listemail')->with('EmailListNames', $EmailListNames);;
+    }
+
+
+    public function FshihListen($IdList)
+    {
+        $query = EmailListNames::where('idEmailListNames', '=', $IdList)->delete();
+        $query1 = EmailListAll::where('idEmailListNames', '=', $IdList)->delete();
+    
+        if ($query > 0) {
+            return response()->json('202 Accepted', 202);
+        } else {
+            return response()->json('404 Not Found', 404);
+        }
     }
 }

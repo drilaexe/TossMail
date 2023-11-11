@@ -227,20 +227,34 @@
             <x-secondary-button x-on:click="$dispatch('close')">
                 {{ __('Anulo') }}
             </x-secondary-button>
-            <x-danger-button id="FshiListen" onclick="fshijlisten()" data-id="0"><i class="fa fa-trash"></i>
-                {{ __('Fshij Listen') }}<i class="gg-adidas"></i>
-            </x-danger-button>
-
-
+            <div>
+                <x-danger-button id="FshiListen" onclick="changebtn()" data-id="0"><i class="fa fa-trash"></i>
+                    {{ __('Fshij Listen') }}
+                </x-danger-button>
+                <x-blue-button class="hidden" id="FshiListenAn" onclick="changebtn()"><i class="fa fa-trash"></i>
+                    {{ __('Anulo') }}
+                </x-blue-button>
+                <x-danger-button class="hidden" id="FshiListenPrano" onclick="fshijlisten()" data-id="0"><i
+                        class="fa fa-trash"></i>
+                    {{ __('Fshij') }}
+                </x-danger-button>
+            </div>
         </div>
 
     </x-modal>
     <script>
+        function changebtn() {
+            $('#FshiListen').slideToggle();
+            $('#FshiListenAn').slideToggle();
+            $('#FshiListenPrano').slideToggle();
+
+        }
+
         function seemodal(IdListes, EmriListes) {
             console.log(IdListes);
 
             $('#HeaderseeEmailList').html(EmriListes);
-            $('#FshiListen').data('id', IdListes);
+            $('#FshiListenPrano').data('id', IdListes);
             $('#EmailsShow').empty();
             axios(`/ListDetails/${IdListes}`).then(function(response) {
                 console.log(response.data);
@@ -265,7 +279,14 @@
         }
 
         function fshijlisten() {
-          alert('test')
+            IdFshiListen = $('#FshiListenPrano').data('id');
+            axios.delete(`/FshihListen/${IdFshiListen}`).then(response => {
+                    console.log(`Deleted post with ID ${IdFshiListen}`);
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
     </script>
 
