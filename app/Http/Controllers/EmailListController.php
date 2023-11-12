@@ -12,6 +12,7 @@ class EmailListController extends Controller
 {
     public function AddEmailList(Request $request)
     {
+        
         if (EmailListNames::where('Emertimi', '=', $request->input('Emertimi'))->count() > 0) {
 
             return redirect()->back()->withErrors('ds');
@@ -37,6 +38,7 @@ class EmailListController extends Controller
 
         return redirect()->back();
     }
+    
     public function ListNameEx($name, Request $request)
     {
         if (EmailListNames::where('Emertimi', '=', $name)->where('UserId', '=', $request->user()->id)->count() > 0) {
@@ -58,7 +60,7 @@ class EmailListController extends Controller
     public function listemail(Request $request)
     {
         $EmailListNames = EmailListNames::where('UserId', '=', $request->user()->id)->orderBy('idEmailListNames', 'desc')->paginate(42);
-        return view('listemail')->with('EmailListNames', $EmailListNames);;
+        return view('listemail')->with('EmailListNames', $EmailListNames);
     }
 
 

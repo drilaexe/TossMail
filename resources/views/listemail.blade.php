@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="ps-2 bg-white  dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <x-blue-button x-data="" id="opmodaladd"
-                    x-on:click.prevent="$dispatch('open-modal', 'add-modal-lista')">{{ __('Shto List') }}</x-blue-button>
+                    x-on:click.prevent="$dispatch('open-modal', 'add-modal-lista')"><i class="fa-solid fa-plus"></i>&nbsp;{{ __('Shto List') }}</x-blue-button>
             </div>
         </div>
     </div>
@@ -231,7 +231,7 @@
                 <x-danger-button id="FshiListen" onclick="changebtn()" data-id="0"><i class="fa fa-trash"></i>
                     {{ __('Fshij Listen') }}
                 </x-danger-button>
-                <x-blue-button class="hidden" id="FshiListenAn" onclick="changebtn()"><i class="fa fa-trash"></i>
+                <x-blue-button class="hidden" id="FshiListenAn" onclick="changebtn()"><i class="fa fa-xmark"></i>
                     {{ __('Anulo') }}
                 </x-blue-button>
                 <x-danger-button class="hidden" id="FshiListenPrano" onclick="fshijlisten()" data-id="0"><i

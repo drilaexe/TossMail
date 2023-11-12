@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmailListController;
+use App\Http\Controllers\TossMailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/listemail', [EmailListController::class, 'listemail'])->name('listemail');
+    Route::get('/tossmail', [TossMailController::class, 'tossmail'])->name('tossmail');
     Route::post('/AddEmailList', [EmailListController::class, 'AddEmailList'])->name('AddEmailList');
     Route::get('/ListNameEx/{name}', [EmailListController::class, 'ListNameEx'])->name('ListNameEx');
     Route::get('/ListDetails/{IdList}', [EmailListController::class, 'ListDetails'])->name('ListDetails');
