@@ -4,36 +4,26 @@
             {{ __('Lista Emaileve') }}
         </h2>
     </x-slot>
-    {{-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> --}}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
+    <script src="https://cdn.tiny.cloud/1/y6om04scypgcybzr0n1x0bnh2i5ht8frioxoh3vhollgh0d3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
+    <script>
+        tinymce.init({
+            selector: "textarea",
+            plugins: 'powerpaste casechange searchreplace autolink directionality advcode visualblocks visualchars image link media mediaembed codesample table charmap pagebreak nonbreaking anchor tableofcontents insertdatetime advlist lists checklist wordcount tinymcespellchecker editimage help formatpainter permanentpen charmap linkchecker emoticons advtable export autosave',
+            toolbar: 'undo redo print spellcheckdialog formatpainter | blocks fontfamily fontsize | bold italic underline forecolor backcolor | link image | alignleft aligncenter alignright alignjustify lineheight | checklist bullist numlist indent outdent | removeformat',
+            height: '700px',
+            skin: 'oxide-dark',
+            content_css: 'dark'
         });
     </script>
 
     <div class="py-2">
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="ps-2 bg-white  dark:bg-gray-800  shadow-sm sm:rounded-lg pb-2 ">
-                <div x-data="editor('<p>Hello world! :-)</p>')">
-
-                    <template x-if="isLoaded()">
-                        <div class="menu">
-                            <button @click="toggleHeading({ level: 1 })"
-                                :class="{ 'is-active': isActive('heading', { level: 1 }, updatedAt) }">
-                                H1
-                            </button>
-                            <button @click="toggleBold()" :class="{ 'is-active': isActive('bold', updatedAt) }">
-                                Bold
-                            </button>
-                            <button @click="toggleItalic()" :class="{ 'is-active': isActive('italic', updatedAt) }">
-                                Italic
-                            </button>
-                        </div>
-                    </template>
-
-                    <div x-ref="element"></div>
-                </div>
+            <div class=" bg-white  dark:bg-gray-800  shadow-sm sm:rounded-lg pb-2 ">
+                <form method="post" action="dump.php">
+                    <textarea name="content"></textarea>
+                </form>
 
             </div>
         </div>
