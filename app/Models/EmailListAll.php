@@ -10,7 +10,7 @@ class EmailListAll extends Model
     use HasFactory;
     protected $table = 'EmailListAll';
 
-    protected $primaryKey = 'idEmailListNames';
+    protected $primaryKey = 'idEmailListAll';
 
     public $timestamps = false;
 

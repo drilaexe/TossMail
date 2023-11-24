@@ -8,8 +8,7 @@
     <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="ps-2 bg-white  dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <x-blue-button x-data="" id="opmodaladd"
-                    x-on:click.prevent="$dispatch('open-modal', 'add-modal-lista')"><i class="fa-solid fa-plus"></i>&nbsp;{{ __('Shto List') }}</x-blue-button>
+                <x-blue-button x-data="" id="opmodaladd" x-on:click.prevent="$dispatch('open-modal', 'add-modal-lista')"><i class="fa-solid fa-plus"></i>&nbsp;{{ __('Shto List') }}</x-blue-button>
             </div>
         </div>
     </div>
@@ -17,11 +16,12 @@
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="ps-2 bg-white  dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg pb-2 ">
-                <div
-                    class="grid grid-cols-6 gap-5 font-mono text-white text-sm text-center font-bold leading-6 rounded-lg mb-2">
+            @if (count($EmailListNames) == 0)
+                    <div class=" font-mono text-white text-sm  font-bold leading-6 ">    {{ __('Nuk ka asnje liste ne databaz ju lutem shtoni listen') }}</div>
+                    @endif
+                <div class="grid grid-cols-6 gap-5 font-mono text-white text-sm text-center font-bold leading-6 rounded-lg mb-2 mt-2">
                     @foreach ($EmailListNames as $EmailListName)
-                        <button x-data="" class="p-4 rounded-lg shadow-lg bg-blue-500"
-                            x-on:click.prevent="seemodal({{ $EmailListName->idEmailListNames }},'{{ $EmailListName->Emertimi }}'),$dispatch('open-modal', 'see-modal-lista')">{{ $EmailListName->Emertimi }}</button>
+                    <button x-data="" class="p-4 rounded-lg shadow-lg bg-blue-500" x-on:click.prevent="seemodal({{ $EmailListName->idEmailListNames }},'{{ $EmailListName->Emertimi }}'),$dispatch('open-modal', 'see-modal-lista')">{{ $EmailListName->Emertimi }}</button>
                     @endforeach
                 </div>
 
@@ -41,16 +41,14 @@
                         <span class="block text-m  font-medium text-white">Emri Listes</span>
                         <x-input-label for="ListName" value="{{ __('Emri Listes') }}" class="sr-only" />
 
-                        <x-text-input id="ListName" name="Emertimi" type="text" class="mt-1 block w-full"
-                            placeholder="{{ __('Emri Listes') }}" />
+                        <x-text-input id="ListName" name="Emertimi" type="text" class="mt-1 block w-full" placeholder="{{ __('Emri Listes') }}" />
                     </label>
 
                     <h1 class="mt-2 mb-2 text-white">Shto Emails</h1>
                     <span class="block text-sm font-medium text-white">Emri</span>
                     <x-input-label for="ListName" value="{{ __('ListName') }}" class="sr-only" />
 
-                    <x-text-input id="Name" name="Name" type="text" class="mt-1 block w-full"
-                        placeholder="{{ __('Emri') }}" />
+                    <x-text-input id="Name" name="Name" type="text" class="mt-1 block w-full" placeholder="{{ __('Emri') }}" />
 
                     </label>
                     <label id="AfterErrorTextEmriAndEmail" class="block" for="EmailAdd" value="{{ __('EmailAdd') }}">
@@ -58,8 +56,7 @@
 
                         <x-input-label for="EmailAdd" value="{{ __('EmailAdd') }}" class="sr-only" />
 
-                        <x-text-input id="EmailAdd" name="EmailAdd" type="email" class="mt-1 block w-full peer ..."
-                            placeholder="{{ __('EmailAdd') }}" />
+                        <x-text-input id="EmailAdd" name="EmailAdd" type="email" class="mt-1 block w-full peer ..." placeholder="{{ __('EmailAdd') }}" />
 
 
                     </label>
@@ -156,8 +153,7 @@
                 </script>
                 <div class="col-span-3">
                     <h1 class="ms-4 text-white text-lg">Emailat e shtuar</h1>
-                    <div class="grid grid-cols-3 gap-3 overflow-y-auto scroll-m-[34rem] scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-400"
-                        id="ListOfEmailsAdded" style="max-height: 36rem">
+                    <div class="grid grid-cols-3 gap-3 overflow-y-auto scroll-m-[34rem] scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-400" id="ListOfEmailsAdded" style="max-height: 36rem">
 
                     </div>
 
@@ -216,8 +212,7 @@
 
 
         <h1 class="ms-4 text-white text-lg" id="HeaderseeEmailList">Emailat e shtuar</h1>
-        <div class="grid grid-cols-4 gap-3 overflow-y-auto scroll-m-[34rem] scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-400 ps-2 pe-2"
-            id="EmailsShow" style="max-height: 36rem">
+        <div class="grid grid-cols-4 gap-3 overflow-y-auto scroll-m-[34rem] scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-400 ps-2 pe-2" id="EmailsShow" style="max-height: 36rem">
 
         </div>
 
@@ -234,8 +229,7 @@
                 <x-blue-button class="hidden" id="FshiListenAn" onclick="changebtn()"><i class="fa fa-xmark"></i>
                     {{ __('Anulo') }}
                 </x-blue-button>
-                <x-danger-button class="hidden" id="FshiListenPrano" onclick="fshijlisten()" data-id="0"><i
-                        class="fa fa-trash"></i>
+                <x-danger-button class="hidden" id="FshiListenPrano" onclick="fshijlisten()" data-id="0"><i class="fa fa-trash"></i>
                     {{ __('Fshij') }}
                 </x-danger-button>
             </div>

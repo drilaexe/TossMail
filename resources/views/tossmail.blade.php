@@ -4,8 +4,7 @@
             {{ __('Toss Mail') }}
         </h2>
     </x-slot>
-    <script src="https://cdn.tiny.cloud/1/y6om04scypgcybzr0n1x0bnh2i5ht8frioxoh3vhollgh0d3/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/y6om04scypgcybzr0n1x0bnh2i5ht8frioxoh3vhollgh0d3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script>
         tinymce.init({
@@ -22,23 +21,21 @@
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class=" bg-white  dark:bg-gray-800  shadow-sm sm:rounded-lg pb-2 ">
-                <div class="grid grid-cols-3 gap-4 pb-2">
+                <div class="grid grid-cols-3 gap-4 pb-2 ps-2 pe-2">
                     <div>
                         <label class="">
                             <span class=" text-m  font-medium text-white">Emertimi</span>
-                            <x-input-label for="ListName" value="{{ __('Emri Listes') }}" class="sr-only" />
+                            <x-input-label for="Emertimi" class="sr-only" />
 
-                            <x-text-input id="ListName" name="Emertimi" type="text" class="mt-1 block w-full"
-                                placeholder="{{ __('Emri Listes') }}" />
+                            <x-text-input id="Emertimi" name="Emertimi" type="text" class="mt-1 block w-full" placeholder="{{ __('Emertimi') }}" />
                         </label>
                     </div>
                     <div>
                         <label class="">
                             <span class=" text-m  font-medium text-white">Subjekti</span>
-                            <x-input-label for="ListName" value="{{ __('Emri Listes') }}" class="sr-only" />
+                            <x-input-label for="Subjekti" class="sr-only" />
 
-                            <x-text-input id="ListName" name="Emertimi" type="text" class="mt-1 block w-full"
-                                placeholder="{{ __('Emri Listes') }}" />
+                            <x-text-input id="Subjekti" name="Subjekti" type="text" class="mt-1 block w-full" placeholder="{{ __('Subjekti') }}" />
                         </label>
                     </div>
                     <div>
@@ -46,29 +43,46 @@
                             <span class=" text-m  font-medium text-white">Lista Emailave</span>
                             <x-input-label for="ListName" value="{{ __('Emri Listes') }}" class="sr-only" />
 
-                            <x-text-input id="ListName" name="Emertimi" type="text" class="mt-1 block w-full"
-                                placeholder="{{ __('Emri Listes') }}" />
+                            <select id="ListName" aria-placeholder="Zgjedh Listen" name="ListName" type="text" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" placeholder="{{ __('Emri Listes') }}" />
+                            <option value="" class="hidden">Zgjedh Listen</option>
+                            @foreach ($EmailListNames as $EmailListName)
+                            <option value="{{ $EmailListName->idEmailListNames }}">{{ $EmailListName->Emertimi }}</option>
+                            @endforeach
+                            </select>
                         </label>
                     </div>
                 </div>
                 <h4 class=" text-center text-m  font-medium text-white">Pershkrimi</h4>
                 <form method="post" action="dump.php">
-                    <textarea name="content"></textarea>
+                    <textarea id="pershkrimi" name="content"></textarea>
                 </form>
 
             </div>
         </div>
     </div>
-    <x-blue-button class="text-xl  bottom-0 right-0 fixed z-50 me-3 mb-3" id="" onclick=""><i class="fa-solid fa-paper-plane"></i>
-       &nbsp; {{ __('Dergo') }}
+    <x-blue-button class="text-xl  bottom-0 right-0 fixed z-50 me-3 mb-3" id="BtnDergo" onclick=""><i class="fa-solid fa-paper-plane"></i>
+        &nbsp; {{ __('Dergo') }}
     </x-blue-button>
-
+    <script>
+       document.addEventListener("DOMContentLoaded", function() {
+            $('#BtnDergo').click(function(e) {
+                e.preventDefault();
+                Emertimi = $('#Emertimi').val();
+                Subjekti = $('#Subjekti').val();
+                ListName = $('#ListName').val();
+                pershkrimi = tinymce.get('pershkrimi').getContent()
+                console.log('Emertimi', Emertimi);
+                console.log('Subjekti', Subjekti);
+                console.log('ListName', ListName);
+                console.log('pershkrimi', pershkrimi);
+            });
+        })
+    </script>
     <x-modal maxWidth="6xl" name="see-modal-lista" class="auto-cols-max" focusable>
 
 
         <h1 class="ms-4 text-white text-lg" id="HeaderseeEmailList">Emailat e shtuar</h1>
-        <div class="grid grid-cols-4 gap-3 overflow-y-auto scroll-m-[34rem] scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-400 ps-2 pe-2"
-            id="EmailsShow" style="max-height: 36rem">
+        <div class="grid grid-cols-4 gap-3 overflow-y-auto scroll-m-[34rem] scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-400 ps-2 pe-2" id="EmailsShow" style="max-height: 36rem">
 
         </div>
 
@@ -81,15 +95,14 @@
             {{-- <div>
                 <x-danger-button id="FshiListen" onclick="changebtn()" data-id="0"><i class="fa fa-trash"></i>
                     {{ __('Fshij Listen') }}
-                </x-danger-button>
-                <x-blue-button class="hidden" id="FshiListenAn" onclick="changebtn()"><i class="fa fa-xmark"></i>
-                    {{ __('Anulo') }}
-                </x-blue-button>
-                <x-danger-button class="hidden" id="FshiListenPrano" onclick="fshijlisten()" data-id="0"><i
-                        class="fa fa-trash"></i>
-                    {{ __('Fshij') }}
-                </x-danger-button>
-            </div> --}}
+            </x-danger-button>
+            <x-blue-button class="hidden" id="FshiListenAn" onclick="changebtn()"><i class="fa fa-xmark"></i>
+                {{ __('Anulo') }}
+            </x-blue-button>
+            <x-danger-button class="hidden" id="FshiListenPrano" onclick="fshijlisten()" data-id="0"><i class="fa fa-trash"></i>
+                {{ __('Fshij') }}
+            </x-danger-button>
+        </div> --}}
         </div>
 
     </x-modal>

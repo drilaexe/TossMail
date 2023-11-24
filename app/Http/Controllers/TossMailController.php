@@ -39,8 +39,8 @@ class TossMailController extends Controller
  
     public function tossmail(Request $request)
     {
-     
-        return view('tossmail');
+        $EmailListNames = EmailListNames::where('UserId', '=', $request->user()->id)->orderBy('idEmailListNames', 'desc')->get();
+        return view('tossmail')->with('EmailListNames', $EmailListNames);;
     }
 
 
