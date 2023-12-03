@@ -30,15 +30,21 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
+   
+    
+    //PROFILE CONTROLER
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    //EmailListController
     Route::get('/listemail', [EmailListController::class, 'listemail'])->name('listemail');
-    Route::get('/tossmail', [TossMailController::class, 'tossmail'])->name('tossmail');
     Route::post('/AddEmailList', [EmailListController::class, 'AddEmailList'])->name('AddEmailList');
     Route::get('/ListNameEx/{name}', [EmailListController::class, 'ListNameEx'])->name('ListNameEx');
     Route::get('/ListDetails/{IdList}', [EmailListController::class, 'ListDetails'])->name('ListDetails');
     Route::delete('/FshihListen/{IdList}', [EmailListController::class, 'FshihListen'])->name('ListDetails');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    //TossMailController
+    Route::get('/tossmail', [TossMailController::class, 'tossmail'])->name('tossmail');
+    Route::post('/sendTossMail', [TossMailController::class, 'sendTossMail'])->name('sendTossMail');
 });
 
 require __DIR__ . '/auth.php';

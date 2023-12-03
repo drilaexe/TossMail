@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use App\Models\EmailListNames;
 use App\Models\EmailListAll;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class EmailListController extends Controller
 {

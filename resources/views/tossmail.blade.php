@@ -26,6 +26,9 @@
     <div class="py-2">
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <form method="post" action="{{ route('sendTossMail') }}" id="sendTossMail">
+        @csrf
+            @method('post')
             <div class=" bg-white  dark:bg-gray-800  shadow-sm sm:rounded-lg pb-2 ">
                 <div class="grid grid-cols-3 gap-4 pb-2 ps-2 pe-2">
                     <div>
@@ -49,7 +52,7 @@
                         <span class=" text-m  font-medium text-white">Lista Emailave</span>
 
                         <div class="w-full flex ">
-                            <select id="ListName" aria-placeholder="Zgjedh Listen" name="ListName" type="text" class="fa-select mt-1 block w-5/6 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" placeholder="{{ __('Emri Listes') }}" />
+                            <select id="ListName" aria-placeholder="Zgjedh Listen" name="ListaId" type="text" class="fa-select mt-1 block w-5/6 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" placeholder="{{ __('Emri Listes') }}" />
                             <option value="" class="hidden">Zgjedh Listen </option>
 
                             @foreach ($EmailListNames as $EmailListName)
@@ -62,11 +65,11 @@
                     </div>
                 </div>
                 <h4 class=" text-center text-m  font-medium text-white">Pershkrimi</h4>
-                <form method="post" action="dump.php">
+                
                     <textarea id="pershkrimi" name="content"></textarea>
-                </form>
-
-            </div>
+                    
+                </div>
+            </form>
         </div>
     </div>
     <x-blue-button class="text-xl  bottom-0 right-0 fixed z-50 me-3 mb-3" id="BtnDergo" onclick=""><i class="fa-solid fa-paper-plane"></i>
@@ -116,6 +119,8 @@
                 console.log('Subjekti', Subjekti);
                 console.log('ListName', ListName);
                 console.log('pershkrimi', pershkrimi);
+                
+                $('#sendTossMail').submit();
             });
         })
     </script>
