@@ -6,17 +6,23 @@
     </x-slot>
     <script src="https://cdn.tiny.cloud/1/y6om04scypgcybzr0n1x0bnh2i5ht8frioxoh3vhollgh0d3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
+
     <script>
         tinymce.init({
             selector: "textarea",
-            plugins: 'powerpaste casechange searchreplace autolink directionality advcode visualblocks visualchars image link media mediaembed codesample table charmap pagebreak nonbreaking anchor tableofcontents insertdatetime advlist lists checklist wordcount tinymcespellchecker editimage help formatpainter permanentpen charmap linkchecker emoticons advtable export autosave',
+            plugins: 'searchreplace autolink directionality visualblocks visualchars image link media  codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap linkchecker emoticons autosave',
             toolbar: 'undo redo print spellcheckdialog formatpainter | blocks fontfamily fontsize | bold italic underline forecolor backcolor | link image | alignleft aligncenter alignright alignjustify lineheight | checklist bullist numlist indent outdent | removeformat',
             height: '690px',
             skin: 'oxide-dark',
             content_css: 'dark'
         });
     </script>
-
+    <style>
+        .fa-select {
+            font-family: 'Figtree', 'Font Awesome 5 Free';
+            font-weight: 900;
+        }
+    </style>
     <div class="py-2">
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -39,17 +45,20 @@
                         </label>
                     </div>
                     <div>
-                        <label class="">
-                            <span class=" text-m  font-medium text-white">Lista Emailave</span>
-                            <x-input-label for="ListName" value="{{ __('Emri Listes') }}" class="sr-only" />
 
-                            <select id="ListName" aria-placeholder="Zgjedh Listen" name="ListName" type="text" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" placeholder="{{ __('Emri Listes') }}" />
-                            <option value="" class="hidden">Zgjedh Listen</option>
+                        <span class=" text-m  font-medium text-white">Lista Emailave</span>
+
+                        <div class="w-full flex ">
+                            <select id="ListName" aria-placeholder="Zgjedh Listen" name="ListName" type="text" class="fa-select mt-1 block w-5/6 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" placeholder="{{ __('Emri Listes') }}" />
+                            <option value="" class="hidden">Zgjedh Listen </option>
+
                             @foreach ($EmailListNames as $EmailListName)
-                            <option value="{{ $EmailListName->idEmailListNames }}">{{ $EmailListName->Emertimi }}</option>
+                            <option value="{{ $EmailListName->idEmailListNames }}">&nbsp; {{ $EmailListName->Emertimi }}</option>
                             @endforeach
                             </select>
-                        </label>
+                            <x-text-input x-data="" x-on:click.prevent="seemodal(),$('#ListName').val()!=''?$dispatch('open-modal', 'see-modal-lista'):$('#ListName').focus()" type="text" class=" mt-1 block w-1/6 " placeholder="&nbsp;&nbsp;&#xf06e" style="cursor:pointer;font-family: FontAwesome, Arial; font-style: normal" />
+
+                        </div>
                     </div>
                 </div>
                 <h4 class=" text-center text-m  font-medium text-white">Pershkrimi</h4>
@@ -64,7 +73,7 @@
         &nbsp; {{ __('Dergo') }}
     </x-blue-button>
     <script>
-       document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
             $('#BtnDergo').click(function(e) {
                 e.preventDefault();
                 Emertimi = $('#Emertimi').val();
@@ -107,8 +116,12 @@
 
     </x-modal>
     <script>
-        function seemodal(IdListes, EmriListes) {
-            console.log(IdListes);
+        function seemodal() {
+            IdListes = $('#ListName').val();
+            if (IdListes == '') {
+                return;
+            }
+            EmriListes = $('#ListName :selected').text();
 
             $('#HeaderseeEmailList').html(EmriListes);
             $('#FshiListenPrano').data('id', IdListes);
