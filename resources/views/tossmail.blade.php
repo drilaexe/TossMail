@@ -80,6 +80,38 @@
                 Subjekti = $('#Subjekti').val();
                 ListName = $('#ListName').val();
                 pershkrimi = tinymce.get('pershkrimi').getContent()
+                err=0;
+                if (Emertimi=="") {
+                    $('#Emertimi').after($(
+                                `<p class="mt-2  text-pink-600 text-sm removeerr">Emrtimi Obligative!</p>`
+                            )
+                            .delay(2000).fadeOut());
+                            err++;
+                } 
+                if (Subjekti=="") {
+                    $('#Subjekti').parent().after($(
+                                `<p class="mt-2  text-pink-600 text-sm removeerr">Subjekti Obligative!</p>`
+                            )
+                            .delay(2000).fadeOut());
+                            err++;
+                } 
+                if (ListName=="") {
+                    $('#ListName').parent().after($(
+                                `<p class="mt-2  text-pink-600 text-sm removeerr">Lista Obligative!</p>`
+                            )
+                            .delay(2000).fadeOut());
+                            err++;
+                } 
+                if (ListName=="") {
+                    $('.tox-tinymce').after($(
+                                `<p class="mt-2  text-pink-600 text-sm removeerr">Pershkrimi Obligative!</p>`
+                            )
+                            .delay(2000).fadeOut());
+                            err++;
+                } 
+                if(err!=0){
+                    return;
+                }
                 console.log('Emertimi', Emertimi);
                 console.log('Subjekti', Subjekti);
                 console.log('ListName', ListName);
