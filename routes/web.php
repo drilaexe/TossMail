@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
     //TossMailController
     Route::get('/tossmail', [TossMailController::class, 'tossmail'])->name('tossmail');
     Route::post('/sendTossMail', [TossMailController::class, 'sendTossMail'])->name('sendTossMail');
+    Route::get('/subjects', [TossMailController::class, 'subjects'])->name('subjects');
 });
 
 require __DIR__ . '/auth.php';

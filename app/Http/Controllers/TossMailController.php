@@ -37,14 +37,17 @@ class TossMailController extends Controller
             $TossMailDelivered->save();
         }
 
-        return redirect()->back();
+        return view('subjects');
     }
-  
- 
     public function tossmail(Request $request)
     {
         $EmailListNames = EmailListNames::where('UserId', '=', $request->user()->id)->orderBy('idEmailListNames', 'desc')->get();
-        return view('tossmail')->with('EmailListNames', $EmailListNames);;
+        return view('tossmail')->with('EmailListNames', $EmailListNames);
+    }
+    public function subjects(Request $request)
+    {
+        // $EmailListNames = EmailListNames::where('UserId', '=', $request->user()->id)->orderBy('idEmailListNames', 'desc')->get();
+        return view('subjects');
     }
 
 
